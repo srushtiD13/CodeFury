@@ -15,7 +15,14 @@ public class Project {
 	public Project() {
 		
 	}
-	
+	public Project(int projectId, String projectName, String description, String startDate, String status) {
+		super();
+		this.projectId = projectId;
+		this.projectName = projectName;
+		this.description = description;
+		this.startDate = startDate;
+		this.status = status;
+	}
 	
 	public Project(String projectName, String description, String startDate, String status, int testerId, int managerId,
 			List<Integer> developerId) {
