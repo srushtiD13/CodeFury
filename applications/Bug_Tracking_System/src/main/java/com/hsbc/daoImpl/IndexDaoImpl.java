@@ -1,6 +1,4 @@
-package com.hsbc.daoImpl;
-
-
+package com.hsbc.Index;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,8 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 
-import com.hsbc.exceptions.UserNotImported;
-import com.hsbc.exceptions.UserNotRegisterd;
+import com.hsbc.Exception.UserNotImported;
+import com.hsbc.Exception.UserNotRegisterd;
 
 public class IndexDaoImpl {
 	private static final String IMPORT_USER = "INSERT INTO user(name, email, role) values(?,?,?)";
@@ -24,7 +22,7 @@ public class IndexDaoImpl {
 	private final String USER_NAME = "root";
 	private final String PASSWORD = "root";
 	private final String DRIVER_CLASS_NAME = "com.mysql.cj.jdbc.Driver";
-	private final String URL = "jdbc:mysql://localhost:3306/first";
+	private final String URL = "jdbc:mysql://localhost:3306/bug_tracking_system";
 
 	public IndexDaoImpl() throws ClassNotFoundException, SQLException {
 		Class.forName(DRIVER_CLASS_NAME);
@@ -89,7 +87,7 @@ public class IndexDaoImpl {
 					stmt2.executeUpdate();
 				}
 				if(rs.getString(1).equals("Tester")) {
-					PreparedStatement stmt2 = this.con.prepareStatement("INSERT INTO tester_project(tester_id,project_id) values(?,?)");
+					PreparedStatement stmt2 = this.con.prepareStatement("INSERT INTO tester_manager(tester_id,manager_id) values(?,?)");
 					stmt.setInt(1, id);
 					stmt.setInt(2, -1);
 					stmt2.executeUpdate();

@@ -1,4 +1,4 @@
-package com.hsbc.daoImpl;
+package com.hsbc.developer;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -22,7 +22,7 @@ public class DeveloperDaoImpl {
 	private final String USER_NAME = "root";
 	private final String PASSWORD = "root";
 	private final String DRIVER_CLASS_NAME = "com.mysql.cj.jdbc.Driver";
-	private final String URL = "jdbc:mysql://localhost:3306/first";
+	private final String URL = "jdbc:mysql://localhost:3306/bug_tracking_system";
 
 	public DeveloperDaoImpl() throws ClassNotFoundException, SQLException {
 		Class.forName(DRIVER_CLASS_NAME);
