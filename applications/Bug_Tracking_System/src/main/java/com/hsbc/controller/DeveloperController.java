@@ -1,4 +1,4 @@
-package com.hsbc.codefury.controller;
+package com.hsbc.controller;
 import java.io.IOException;
 import java.util.List;
 
@@ -10,14 +10,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.hsbc.codefury.dao.BugDao;
-import com.hsbc.codefury.dao.ProjectDao;
-import com.hsbc.codefury.daoimpl.BugDaoImpl;
-import com.hsbc.codefury.daoimpl.ProjectDaoImpl;
-import com.hsbc.codefury.entity.Bug;
-import com.hsbc.codefury.entity.Project;
-import com.hsbc.codefury.exception.NoBugFoundException;
-import com.hsbc.codefury.exception.NoProjectDetailsFoundException;
+import com.hsbc.dao.BugDao;
+import com.hsbc.dao.ProjectDao;
+import com.hsbc.daoImpl.BugDaoImpl;
+import com.hsbc.daoImpl.ProjectDaoImpl;
+import com.hsbc.entity.Bug;
+import com.hsbc.entity.Project;
+import com.hsbc.exceptions.NoBugFoundException;
+import com.hsbc.exceptions.NoProjectDetailsFoundException;
 
 //This class is declared as Servlet controller for displaying Project and Bug details on the Developer Mainn Page.
 
