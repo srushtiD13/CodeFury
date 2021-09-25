@@ -26,7 +26,7 @@ import com.hsbc.entity.User;
 public class ProjectController extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		ProjectDao dao = new ProjectDaoImpl();
+		ManagerDao dao = new ManagerDaoImpl();
 		Project project = new Project();
 		User employee = new User();
 		List<Bug> bugs = new ArrayList<Bug>();
@@ -35,35 +35,33 @@ public class ProjectController extends HttpServlet{
 		
 		// this projectId will come from main page of manager
 		int projectId = Integer.parseInt(req.getParameter("projectId"));
-		//int projectId = 1;
 
 		HttpSession session = req.getSession();
 
 		if(operation==null||operation.trim().length()==0) {
 			project = dao.findProjectById(projectId);
-			bugs = dao.findAllBug(projectId);
-			List<String> dev = new ArrayList<String>();
-			dev.add("Developer1");
-			dev.add("Developer2");
-			dev.add("Developer3");
-			String team[] = new String[]{"Amit","Sachin","Aman"};
-			employee.setTeam(team);
+			bugs = dao.findBugByProject(projectId);
+			List<User> developer = new ArrayList<User>();
+			for(int i:project.getDeveloperId()) {
+				developer.add(dao.getUserById(i));
+			}
+			developer.add(dao.getUserById(project.getTesterId()));
 
-			session.setAttribute("developers", dev);session.setAttribute("developers", dev);
+			session.setAttribute("developers", developer)
 			session.setAttribute("project", project);
-			session.setAttribute("employee", employee);
 			session.setAttribute("bug", bugs);
 			RequestDispatcher dispatcher = req.getRequestDispatcher("views/projectDetails.jsp");
 			dispatcher.forward(req, resp);
 		}
 		else if(operation.equals("assign")) {
 			int bugId = Integer.parseInt(req.getParameter("bugId"));
-			List<String> dev = new ArrayList<String>();
-			dev.add("Developer1");
-			dev.add("Developer2");
-			dev.add("Developer3");
-			
-			session.setAttribute("developers", dev);
+			project = dao.findProjectById(projectId);			
+			List<User> developer = new ArrayList<User>();
+			for(int i:project.getDeveloperId()) {
+				developer.add(dao.getUserById(i));
+			}
+
+			session.setAttribute("developers", developer);
 			session.setAttribute("bugid", bugId);
 			session.setAttribute("projectId", projectId);
 			//resp.sendRedirect("projectDetails.jsp");
@@ -81,10 +79,10 @@ public class ProjectController extends HttpServlet{
 		}
 		else if(operation.equals("close")){
 			int uniqueId = Integer.parseInt(req.getParameter("bugId"));
-			dao.closeBug(projectId, uniqueId);
-			bugs = dao.findAllBug(projectId);
+			dao.closeBug(uniqueId, projectId);
+//			bugs = dao.findAllBug(projectId);
 			session.setAttribute("bug", bugs);
-			RequestDispatcher dispatcher = req.getRequestDispatcher("views/projectDetails.jsp");
+			RequestDispatcher dispatcher = req.getRequestDispatcher("projectDetails.jsp");
 			dispatcher.forward(req, resp);
 			System.out.println("out");
 		}
@@ -95,18 +93,18 @@ public class ProjectController extends HttpServlet{
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
+		ManagerDao dao = new ManagerDaoImpl();
 		String operation = req.getParameter("operation");
 		
 		if(operation!=null && operation.equals("assign")) {
-			String dev = req.getParameter("developer");
+			int developerId = Integer.parseInt(req.getParameter("developer"));
 			int bugId = Integer.parseInt(req.getParameter("bugId"));
 			System.out.println(dev);
 			System.out.println(bugId);
 			
 			// TO-DO call function to set developer as assigned for the bug by passing parameters: developer name and bugid to function
 			//if the bug is marked as not marked for closing then assign it to developer by checking the parameter asigned_to in database
-			
+			dao.assignBug(bugId ,developerId )
 			resp.sendRedirect("views/projectDetails.jsp");
 //			RequestDispatcher dispatcher = req.getRequestDispatcher("projectDetails.jsp");
 //			dispatcher.forward(req, resp);

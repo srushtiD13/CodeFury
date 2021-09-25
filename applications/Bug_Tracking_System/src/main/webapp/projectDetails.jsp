@@ -35,12 +35,12 @@
 					<td>${ project.getProjectManagerId()}</td>
 				</tr>
 				<tr>
-					<th rowspan='4'>Team members : </th>
+					<th rowspan='10'>Team members : </th>
 					<!-- <td>${ employee.getTeam()}</td>-->
 				</tr>
 				
-				<c:forEach items="${ employee.getTeam()}" var="user">
-					<tr><td>${ user}</td></tr>
+				<c:forEach items="${ developers}" var="user">
+					<tr><td>${ user.getEmployeeName()}</td></tr>
 				</c:forEach>
 				
 			</table>
@@ -96,7 +96,7 @@
 								<label>Select developer to assign</label>
 								<select name="developer">
 									<c:forEach items="${ developers}" var="dev">
-										<option value="${ dev}"> ${ dev}</option>
+										<option value="${ dev.getEmployeeId()}"> ${ dev.getEmployeeName()}</option>
 									</c:forEach>
 								</select>
 								<input type="submit" value="Assign"></input>
