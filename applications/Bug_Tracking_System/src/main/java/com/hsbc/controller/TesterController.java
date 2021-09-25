@@ -1,6 +1,7 @@
-package com.hsbc.codefury.controller;
+package com.hsbc.controller;
 
 import java.io.IOException;
+
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,12 +16,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.hsbc.codefury.dao.ManagerDao;
-import com.hsbc.codefury.daoimpl.ManagerDaoImpl;
-import com.hsbc.codefury.daoimpl.TesterDaoImpl;
-import com.hsbc.codefury.entity.Bug;
-import com.hsbc.codefury.entity.Project;
-import com.hsbc.codefury.entity.User;
+import com.hsbc.dao.ManagerDao;
+import com.hsbc.daoImpl.ManagerDaoImpl;
+import com.hsbc.daoImpl.TesterDaoImpl;
+import com.hsbc.entity.Bug;
+import com.hsbc.entity.Project;
+import com.hsbc.entity.User;
 
 @WebServlet("/testermain")
 public class TesterController extends HttpServlet{
