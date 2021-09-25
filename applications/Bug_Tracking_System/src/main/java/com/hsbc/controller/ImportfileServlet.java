@@ -41,7 +41,11 @@ public class ImportfileServlet extends HttpServlet {
 			for (int i=0;i<dataString.length;i=i+3)
 			{
 				try {
-					index.importNewUser(dataString[i],dataString[i+1],dataString[i+2]);
+					String name=dataString[i].substring(1, dataString[i].length() - 1);
+					String email=dataString[i+1].substring(1, dataString[i+1].length() - 1);
+					String role=dataString[i+2].substring(1, dataString[i+2].length() - 1);
+					
+					index.importNewUser(name,email,role);
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

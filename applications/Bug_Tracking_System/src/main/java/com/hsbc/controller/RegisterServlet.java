@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import login.Login;
-import login.UserNotImported;
+import com.hsbc.daoImpl.IndexDaoImpl;
+import com.hsbc.exceptions.UserNotImported;
 
 import com.hsbc.daoImpl.IndexDaoImpl;
 

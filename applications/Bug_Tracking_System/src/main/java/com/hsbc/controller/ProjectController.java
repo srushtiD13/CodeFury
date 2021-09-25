@@ -5,6 +5,7 @@ package com.hsbc.controller;
  *  The manager can assign the bug to any of the developer from that project only
  */
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,10 +18,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.hsbc.dao.ProjectDao;
-import com.hsbc.daoimpl.ProjectDaoImpl;
+import com.hsbc.daoImpl.ProjectDaoImpl;
 import com.hsbc.entity.Bug;
 import com.hsbc.entity.Project;
 import com.hsbc.entity.User;
+import com.hsbc.daoImpl.ManagerDaoImpl;
+import com.hsbc.dao.ManagerDao;
 
 @WebServlet("/projectdetails")
 public class ProjectController extends HttpServlet{
@@ -47,7 +50,7 @@ public class ProjectController extends HttpServlet{
 			}
 			developer.add(dao.getUserById(project.getTesterId()));
 
-			session.setAttribute("developers", developer)
+			session.setAttribute("developers", developer);
 			session.setAttribute("project", project);
 			session.setAttribute("bug", bugs);
 			RequestDispatcher dispatcher = req.getRequestDispatcher("views/projectDetails.jsp");
@@ -93,18 +96,28 @@ public class ProjectController extends HttpServlet{
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		ManagerDao dao = new ManagerDaoImpl();
+		
 		String operation = req.getParameter("operation");
 		
 		if(operation!=null && operation.equals("assign")) {
 			int developerId = Integer.parseInt(req.getParameter("developer"));
 			int bugId = Integer.parseInt(req.getParameter("bugId"));
-			System.out.println(dev);
-			System.out.println(bugId);
+			
 			
 			// TO-DO call function to set developer as assigned for the bug by passing parameters: developer name and bugid to function
 			//if the bug is marked as not marked for closing then assign it to developer by checking the parameter asigned_to in database
-			dao.assignBug(bugId ,developerId )
+			ManagerDao dao;
+			try {
+				dao = new ManagerDaoImpl();
+				dao.assignBug(bugId ,developerId );
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 			resp.sendRedirect("views/projectDetails.jsp");
 //			RequestDispatcher dispatcher = req.getRequestDispatcher("projectDetails.jsp");
 //			dispatcher.forward(req, resp);

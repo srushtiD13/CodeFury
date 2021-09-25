@@ -3,6 +3,7 @@ package com.hsbc.controller;
 import java.io.IOException;
 
 import java.sql.Date;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -85,27 +86,42 @@ public class TesterController extends HttpServlet{
 		String operation = req.getParameter("operation");
 
 		if(operation.equals("createbug")) {
-			TesterDaoImpl dao = new TesterDaoImpl();
-			Bug bug = new Bug();
-			Project project = new Project();
-			int projectId = 1;										// this project id comes from main page of tester
+			TesterDaoImpl dao;
+			try {
+				dao = new TesterDaoImpl();
+				Bug bug = new Bug();
+				Project project = new Project();
+				int projectId = 1;										// this project id comes from main page of tester
 
-			String projectName = req.getParameter("projectname");	// this project name comes from main page of tester
-			String title = req.getParameter("title");
-			String description = req.getParameter("description");
-			String severity = req.getParameter("severity");
+				String projectName = req.getParameter("projectname");	// this project name comes from main page of tester
+				String title = req.getParameter("title");
+				String description = req.getParameter("description");
+				String severity = req.getParameter("severity");
 
-			bug.setBugName(title);
-			bug.setDescription(description);
-			bug.setCreatedBy(1);						//the id of current tester
-			bug.setOpenDate(new Date(System.currentTimeMillis()));
-			bug.setSeverityLevel(severity);
-			project.setProjectName(projectName);
-			project.setProjectId(projectId);
+				bug.setBugName(title);
+				bug.setDescription(description);
+				bug.setCreatedBy(1);						//the id of current tester
+				bug.setOpenDate(new Date(System.currentTimeMillis()));
+				bug.setSeverityLevel(severity);
+				project.setProjectName(projectName);
+				project.setProjectId(projectId);
 
-			dao.reportNewBug(bug, project);
+				try {
+					dao.reportNewBug(bug, project);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 
-			resp.sendRedirect("view/testerMainPage.jsp");
+				resp.sendRedirect("view/testerMainPage.jsp");
+			} catch (ClassNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
 
 		}
 

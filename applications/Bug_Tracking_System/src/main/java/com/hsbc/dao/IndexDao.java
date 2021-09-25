@@ -2,8 +2,8 @@ package com.hsbc.dao;
 
 import java.sql.SQLException;
 
-import com.hsbc.Exception.UserNotImported;
-import com.hsbc.Exception.UserNotRegisterd;
+import com.hsbc.exceptions.UserNotImported;
+import com.hsbc.exceptions.UserNotRegisterd;
 
 public interface IndexDao {
 

@@ -1,4 +1,4 @@
-package com.hsbc.Index;
+package com.hsbc.daoImpl;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -7,8 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 
-import com.hsbc.Exception.UserNotImported;
-import com.hsbc.Exception.UserNotRegisterd;
+import com.hsbc.exceptions.UserNotImported;
+import com.hsbc.exceptions.UserNotRegisterd;
 import com.hsbc.dao.IndexDao;
 
 public class IndexDaoImpl implements IndexDao {

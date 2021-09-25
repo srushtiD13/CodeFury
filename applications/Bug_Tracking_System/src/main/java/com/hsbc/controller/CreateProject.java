@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.hsbc.dao.ProjectDao;
 import com.hsbc.dao.UserDao;
-import com.hsbc.daoimpl.ProjectDaoImpl;
-import com.hsbc.daoimpl.UserDaoImpl;
+import com.hsbc.daoImpl.ProjectDaoImpl;
+import com.hsbc.daoImpl.UserDaoImpl;
 import com.hsbc.entity.Project;
 import com.hsbc.entity.User;
 
@@ -52,7 +52,7 @@ public class CreateProject extends HttpServlet{
 		Project project = new Project();
 		project.setProjectName(name);
 		project.setDescription(description);
-		project.setStartDate1(startDate);
+		project.setStartDate(startDate);
 		project.setTesterId(tester);
 		project.setStatus("in-progress");
 		project.setDeveloperId(developers);

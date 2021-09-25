@@ -162,7 +162,7 @@ function sendToServlet(param)
 
 	xhr.onload = function() {//Call a function when the state changes.
 	    if(xhr.status == 200) {
-	        alert(this.responseText);
+	        alert("Correct Users Are Added!");
 	    }
 	}
 	xhr.send(param);

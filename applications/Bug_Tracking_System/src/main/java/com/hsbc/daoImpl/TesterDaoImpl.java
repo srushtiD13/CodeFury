@@ -1,4 +1,4 @@
-package com.hsbc.tester;
+package com.hsbc.daoImpl;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
