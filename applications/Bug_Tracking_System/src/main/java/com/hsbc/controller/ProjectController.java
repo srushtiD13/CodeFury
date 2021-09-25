@@ -73,7 +73,7 @@ public class ProjectController extends HttpServlet{
 			for(Bug b:bugs)
 				System.out.println(b.getMarkedForClosing());
 			session.setAttribute("bug", bugs);
-			resp.sendRedirect("views/projectDetails.jsp");
+			resp.sendRedirect("projectDetails.jsp");
 //			RequestDispatcher dispatcher = req.getRequestDispatcher("projectDetails.jsp");
 //			dispatcher.forward(req, resp);
 		}
@@ -99,13 +99,13 @@ public class ProjectController extends HttpServlet{
 		if(operation!=null && operation.equals("assign")) {
 			int developerId = Integer.parseInt(req.getParameter("developer"));
 			int bugId = Integer.parseInt(req.getParameter("bugId"));
-			System.out.println(dev);
+			System.out.println(developerId);
 			System.out.println(bugId);
 			
 			// TO-DO call function to set developer as assigned for the bug by passing parameters: developer name and bugid to function
 			//if the bug is marked as not marked for closing then assign it to developer by checking the parameter asigned_to in database
 			dao.assignBug(bugId ,developerId )
-			resp.sendRedirect("views/projectDetails.jsp");
+			resp.sendRedirect("projectDetails.jsp");
 //			RequestDispatcher dispatcher = req.getRequestDispatcher("projectDetails.jsp");
 //			dispatcher.forward(req, resp);
 		}
