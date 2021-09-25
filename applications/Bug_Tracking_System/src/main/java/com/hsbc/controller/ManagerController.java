@@ -37,6 +37,8 @@ public class ManagerController extends HttpServlet{
 		    Date date=Date.valueOf("1999-09-19");
 			user.setDoj(date);
 			user.setRole("Manager");
+			int userId = 101;
+			user.setUserId(userId );
 			session.setAttribute("user", user);
 			RequestDispatcher dispatcher = req.getRequestDispatcher("views/managerMainPage.jsp");
 			dispatcher.forward(req, resp);

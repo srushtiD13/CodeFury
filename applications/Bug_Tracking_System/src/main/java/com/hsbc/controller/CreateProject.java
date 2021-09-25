@@ -45,6 +45,8 @@ public class CreateProject extends HttpServlet{
 		{
 			developers.add( Integer.parseInt(userid));
 		}
+		int managerId = Integer.parseInt(request.getParameter("managerId"));
+		
 
 		RequestDispatcher rd = null;
 		Project project = new Project();
@@ -54,6 +56,7 @@ public class CreateProject extends HttpServlet{
 		project.setTesterId(tester);
 		project.setStatus("in-progress");
 		project.setDeveloperId(developers);
+		project.setManagerId(managerId);
 		System.out.println(project);
 
 		ProjectDao projectDao = new ProjectDaoImpl();

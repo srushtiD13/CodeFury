@@ -12,33 +12,37 @@
 </head>
 <body>
 	<jsp:include page="header.jsp" />
-	<div align ="center">
+
 	<a href="manager">Manager Main</a>
+	<div align="center">
 	<h2>Add new Project</h2>
-	<form action="manager" method="POST">
-		<input id='projectName' type="text" name="name" value="${ project.name }" placeholder="Enter Name"><br />
+	<form action="addproject" method="POST">
+	<div align ="center">Manager Id : 
+		<input id='managerId' type="text" name="name" value="${ user.getUserId() }" placeholder="${ user.getUserId() }" disabled ><br><br />
+		</div>
+		<input id='projectName' type="text" name="name" value="${ project.name }" placeholder="Enter Name"><br/><br>
 		
 		<textarea id='projectDesc' type="text" name="description"	value="${ project.description }" placeholder="Enter description"></textarea>
-		<br /> 
+		<br /> <br>
 		<input type="date" onblur="validateDate()" name="startDate"
 			id='startDate' placeholder="dd-mm-yyyy" value="${project.startDate }"
 			max="2030-12-31"> <span id='dateerror'></span>
-		<br> 
+		<br> <br>
 		<select	name="developers" id='developers' multiple="multiple">
-			<option value="">Select Developers</option>
+			<option value="" disabled>Select Developers</option>
 			<c:forEach items="${developers}" var="developer">
 				<option value="${developer.getUserId()}" name="${developer.getName()}">
 					${developer.getName()}</option>
 			</c:forEach>
 		</select> 
-		<br>
+		<br><br>
 	    <select name="testers">
 			<option value="">Select Tester</option>
 			<c:forEach items="${testers}" var="tester">
 				<option value="${tester.getUserId()}" name="${tester.getName()}">
 					${tester.getName()}</option>
 			</c:forEach>
-		</select><br>
+		</select><br><br>
 		<input type="submit" value="Add" id='submitButton'>
 		<span id='fieldserror'></span>
 	</form>
