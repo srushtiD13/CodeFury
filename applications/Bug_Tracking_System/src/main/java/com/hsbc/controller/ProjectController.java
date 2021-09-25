@@ -1,4 +1,4 @@
-package com.hsbc.codefury.controller;
+package com.hsbc.controller;
 /**
  *  Displays the details of selected project along with all bugs present.
  *  The project manager can close a particular bug if it is marked to be closed by assigned developer
@@ -16,11 +16,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.hsbc.codefury.dao.ProjectDao;
-import com.hsbc.codefury.daoimpl.ProjectDaoImpl;
-import com.hsbc.codefury.entity.Bug;
-import com.hsbc.codefury.entity.Project;
-import com.hsbc.codefury.entity.User;
+import com.hsbc.dao.ProjectDao;
+import com.hsbc.daoimpl.ProjectDaoImpl;
+import com.hsbc.entity.Bug;
+import com.hsbc.entity.Project;
+import com.hsbc.entity.User;
 
 @WebServlet("/projectdetails")
 public class ProjectController extends HttpServlet{

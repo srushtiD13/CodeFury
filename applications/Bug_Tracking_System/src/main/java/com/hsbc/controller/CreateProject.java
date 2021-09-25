@@ -1,4 +1,4 @@
-package com.hsbc.codefury.controller;
+package com.hsbc.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,12 +11,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.hsbc.codefury.dao.ProjectDao;
-import com.hsbc.codefury.dao.UserDao;
-import com.hsbc.codefury.daoimpl.ProjectDaoImpl;
-import com.hsbc.codefury.daoimpl.UserDaoImpl;
-import com.hsbc.codefury.entity.Project;
-import com.hsbc.codefury.entity.User;
+import com.hsbc.dao.ProjectDao;
+import com.hsbc.dao.UserDao;
+import com.hsbc.daoimpl.ProjectDaoImpl;
+import com.hsbc.daoimpl.UserDaoImpl;
+import com.hsbc.entity.Project;
+import com.hsbc.entity.User;
 
 @WebServlet("/addproject")
 public class CreateProject extends HttpServlet{
