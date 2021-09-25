@@ -1,3 +1,4 @@
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>   
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -9,12 +10,12 @@
 <body>
 	<table>
 		<tr>
-			<td>Email Id : xyz@mail.com</td>
+			<td>Email Id : ${user.getEmailId()}</td>
 		</tr>
 		<tr>
-			<td>Role : Manager</td>
+			<td>Role : ${user.getRole()}</td>
 		</tr>
-			<td>Last login date & Time : yyyy:mm:dd hh:mm::ss</td>
+			<td>Last login date & Time : ${user.getDoj()}</td>
 		<tr>
 		</tr>
 	</table>

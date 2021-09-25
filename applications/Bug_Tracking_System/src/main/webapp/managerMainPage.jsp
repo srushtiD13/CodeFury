@@ -10,21 +10,17 @@
 <body align="center">
 
 	<%@ include file="header.jsp"%>
-	<%@ include file="userDetails.jsp"%>
+	<%@ include file="userDetails.jsp"%> <!-- Pass user object through controller -->
 	<hr>
-	<a href="manager?operation=create">Create New Project</a>
+	<a href="addproject">Create New Project</a>
 	<hr>
 	<table align="center">
 			<!-- all projects under manager -->
-			<%
-			for (int i = 0; i < 10; i++) {
-			%>
+			<c:forEach items="${projectList}" var="project">
 			<tr>
-			<td><a href="projectdetails">Project <%=i%></a></td>
+			<td><a href="projectdetails?projectId=${project.getProjectId()}">${project.getProjectName()}</a></td>
 			</tr>
-			<%
-			}
-			%>
+			</c:forEach>
 			
 		
 	</table>
