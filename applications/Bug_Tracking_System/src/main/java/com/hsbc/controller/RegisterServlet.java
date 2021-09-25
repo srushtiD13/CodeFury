@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import login.Login;
 import login.UserNotImported;
 
+import com.hsbc.daoImpl.IndexDaoImpl;
+
 
 
 
@@ -21,13 +23,13 @@ import login.UserNotImported;
 public class RegisterServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     // This Login is Dao layer login
-    private Login login;
+    private IndexDaoImpl login;
     // Login userDao;
 
     public void init() {
        
         try {
-			login = new Login();
+			login = new IndexDaoImpl();
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

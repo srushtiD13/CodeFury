@@ -13,19 +13,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.hsbc.daoImpl.IndexDaoImpl;
 
-import login.Login;
+
 
 
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private Login login;
+	private IndexDaoImpl login;
 
 	public void init() {
 		try {
-			login = new Login();
+			login = new IndexDaoImpl();
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -59,6 +60,9 @@ public class LoginServlet extends HttpServlet {
 		}
 		catch(NullPointerException e) {
 			System.out.println(e);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 		try {
