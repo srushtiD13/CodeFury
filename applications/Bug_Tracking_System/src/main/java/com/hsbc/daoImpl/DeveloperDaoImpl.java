@@ -8,10 +8,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.hsbc.dao.DeveloperDao;
 import com.hsbc.entity.Bug;
 import com.hsbc.entity.Project;
 
-public class DeveloperDaoImpl {
+public class DeveloperDaoImpl implements DeveloperDao {
 	private Connection con;
 
 	private final String DISPLAY_PROJECT = "SELECT project_id, name, description, start_date, status FROM project WHERE project_id=?";
@@ -30,6 +31,7 @@ public class DeveloperDaoImpl {
 		System.out.println("connection established.");
 	}
 
+	@Override
 	public List<Project> findProjectByDeveloperId(int tester_id) throws SQLException {
 		System.out.println("finding projects of testor..");
 		List<Project> projects = new ArrayList<Project>();
@@ -63,6 +65,7 @@ public class DeveloperDaoImpl {
 		return projects;
 	}
 	
+	@Override
 	public List<Bug> findBugByDeveloperId(int developerId) throws SQLException{
 		System.out.println("finding bugs for developer");
 		List<Bug> bugs = new ArrayList<Bug>();
@@ -92,6 +95,7 @@ public class DeveloperDaoImpl {
 		return bugs;
 	}
 	
+	@Override
 	public void closeBug(int bugId) throws SQLException {
 		PreparedStatement stmt = this.con.prepareStatement(CLOSE_BUG);
 		stmt.setString(1, "yes");

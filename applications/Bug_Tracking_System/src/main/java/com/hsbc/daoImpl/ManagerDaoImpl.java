@@ -8,11 +8,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.hsbc.dao.ManagerDao;
 import com.hsbc.entity.Bug;
 import com.hsbc.entity.Project;
 import com.hsbc.entity.User;
 
-public class ManagerDaoImpl {
+public class ManagerDaoImpl implements ManagerDao {
 	private Connection con;
 
 	private final String FIND_PROJECT_BY_ID = "SELECT project_id, name, description, start_date, status FROM project WHERE project_id=?";
@@ -34,6 +35,7 @@ public class ManagerDaoImpl {
 		System.out.println("connection established.");
 	}
 
+	@Override
 	public Project findProjectById(int projectId) throws SQLException {
 		PreparedStatement stmt = this.con.prepareStatement(FIND_PROJECT_BY_ID);
 		stmt.setInt(1, projectId);
@@ -71,6 +73,7 @@ public class ManagerDaoImpl {
 
 	}
 
+	@Override
 	public List<Bug> findBugByProject(int project_id) throws SQLException {
 		System.out.println("finding bugs from project");
 		List<Bug> bugs = new ArrayList<Bug>();
@@ -102,6 +105,7 @@ public class ManagerDaoImpl {
 	}
 
 	// Mention change in parameter
+	@Override
 	public void closeBug(int bugId, int managerId) throws SQLException {
 		PreparedStatement stmt = this.con.prepareStatement(CLOSE_BUG);
 		stmt.setInt(1, managerId);
@@ -109,6 +113,7 @@ public class ManagerDaoImpl {
 		stmt.executeUpdate();
 	}
 
+	@Override
 	public void assignBug(int bugId, int developerId) throws SQLException {
 		PreparedStatement stmt = this.con.prepareStatement(ASSIGN_BUG);
 		stmt.setInt(1, developerId);
@@ -116,6 +121,7 @@ public class ManagerDaoImpl {
 		stmt.executeUpdate();
 	}
 
+	@Override
 	public List<User> findAllDeveloper() throws SQLException {
 		List<User> developers = new ArrayList<>();
 		PreparedStatement stmt = this.con
@@ -134,11 +140,12 @@ public class ManagerDaoImpl {
 			String pwd = rs2.getString(5);
 			String last_lagged_on = rs2.getString(6);
 
-			developers.add(new User(userId, name, email, role, pwd, last_lagged_on));
+			developers.add(new User(userId, name, email, role, "", last_lagged_on));
 		}
 		return developers;
 	}
 
+	@Override
 	public List<User> findAllTestors(int managerId) throws SQLException {
 		List<User> testors = new ArrayList<User>();
 
@@ -159,13 +166,14 @@ public class ManagerDaoImpl {
 			String pwd = rs2.getString(5);
 			String last_lagged_on = rs2.getString(6);
 
-			testors.add(new User(userId, name, email, role, pwd, last_lagged_on));
+			testors.add(new User(userId, name, email, role, "", last_lagged_on));
 		}
 
 		return testors;
 	}
 
-	public void addProject(Project project) throws SQLException {
+	@Override
+	public void addNewProject(Project project) throws SQLException {
 		PreparedStatement stmt = this.con.prepareStatement(
 				"INSERT INTO project(name, description, start_date, status, manager_id) values(?,?,?,?,?)");
 		stmt.setString(1, project.getProjectName());
@@ -200,6 +208,21 @@ public class ManagerDaoImpl {
 		stmt.setInt(1, project.getTesterId());
 		stmt.setInt(2, project_id);
 		stmt.executeQuery();
+	}
+
+	@Override
+	public User getUserById(int id) throws SQLException {
+		
+		PreparedStatement stmt = this.con.prepareStatement(DISPLAY_USER);
+		stmt.setInt(1, id);
+		ResultSet rs2 = stmt.executeQuery();
+		int userId = rs2.getInt(1);
+		String name = rs2.getString(2);
+		String email = rs2.getString(3);
+		String role = rs2.getString(4);
+		String pwd = rs2.getString(5);
+		String last_lagged_on = rs2.getString(6);
+		return new User(userId, name, email, role, "", last_lagged_on);
 	}
 
 }

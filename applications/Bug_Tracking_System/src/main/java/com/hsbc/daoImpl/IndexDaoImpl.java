@@ -9,8 +9,9 @@ import java.sql.SQLIntegrityConstraintViolationException;
 
 import com.hsbc.Exception.UserNotImported;
 import com.hsbc.Exception.UserNotRegisterd;
+import com.hsbc.dao.IndexDao;
 
-public class IndexDaoImpl {
+public class IndexDaoImpl implements IndexDao {
 	private static final String IMPORT_USER = "INSERT INTO user(name, email, role) values(?,?,?)";
 	private static final String FIND_USER = "SELECT COUNT(email) FROM user WHERE email = ?";
 	private static final String REGISTER_USER = "UPDATE user SET pwd = ? WHERE email = ?";
@@ -30,6 +31,7 @@ public class IndexDaoImpl {
 		System.out.println("connection established.");
 	}
 
+	@Override
 	public void importNewUser(final String name, final String emailId, final String role) throws SQLException {
 		System.out.println("Importing New User");
 
@@ -46,6 +48,7 @@ public class IndexDaoImpl {
 		stmt.close();
 	}
 
+	@Override
 	public void registerNewUser(final String emailId, final String role, final String password)
 			throws UserNotImported, SQLException {
 		System.out.println("Registering New User");
@@ -111,6 +114,7 @@ public class IndexDaoImpl {
 
 	}
 
+	@Override
 	public int isUserExist(final String emailId) throws SQLException {
 		PreparedStatement stmt = this.con.prepareStatement(FIND_USER);
 		stmt.setString(1, emailId);
@@ -121,6 +125,7 @@ public class IndexDaoImpl {
 		return rs.getInt(1);
 	}
 
+	@Override
 	public String getPassword(String emailId) throws UserNotRegisterd {
 		try {
 			PreparedStatement stmt = this.con.prepareStatement(GET_PASSWORD);
@@ -138,6 +143,7 @@ public class IndexDaoImpl {
 		return "";
 	}
 	
+	@Override
 	public String getRole(String username) throws SQLException {
 		PreparedStatement preparedStatement = con.prepareStatement("select role from login where username = ?");
 		preparedStatement.setString(1, username);
@@ -147,6 +153,7 @@ public class IndexDaoImpl {
 		return rs.getString(1);
 	}
 	
+	@Override
 	public boolean validate(String username, String Password) throws Exception {
 		
 		return getPassword(username).equals(Password);
