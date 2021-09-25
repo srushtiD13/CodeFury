@@ -17,7 +17,7 @@ import com.hsbc.daoImpl.ProjectDaoImpl;
 import com.hsbc.entity.Bug;
 import com.hsbc.entity.Project;
 import com.hsbc.exceptions.NoBugFoundException;
-import com.hsbc.exceptions.NoProjectDetailsFoundException;
+import com.hsbc.exceptions.NoProjectDetailsFound;
 
 //This class is declared as Servlet controller for displaying Project and Bug details on the Developer Mainn Page.
 
