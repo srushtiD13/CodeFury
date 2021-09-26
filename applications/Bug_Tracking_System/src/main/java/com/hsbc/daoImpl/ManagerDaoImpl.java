@@ -104,6 +104,53 @@ public class ManagerDaoImpl implements ManagerDao {
 		return bugs;
 	}
 
+	// returns sorted list of all bugs
+	@Override
+	public List<Bug> findAllBugSorted(int projectId){
+
+		List<Bug> bugs = new ArrayList<Bug>();
+
+		ResultSet resultSet = null;
+		PreparedStatement stmt = null;
+
+		try {
+			stmt = con.prepareStatement(FIND_ALL_BUG);
+			stmt.setInt(1, projectId);
+			resultSet = stmt.executeQuery();
+
+			while(resultSet.next()) {
+				Bug bug = new Bug();
+				bug.setUniqueId(resultSet.getInt(1));
+				bug.setBugName(resultSet.getString(2));
+				bug.setMarkedForClosing(resultSet.getString(8));
+				bug.setStatus(resultSet.getString(11));
+				bugs.add(bug);
+			}
+			Collections.sort(bugs, new BugSortByName());
+
+		} 
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		finally												
+		{
+			try {
+				if(resultSet!=null) {
+					resultSet.close();
+				}
+				if(stmt!=null) {
+					stmt.close();
+				}
+			}
+			catch(Exception e) {
+				e.printStackTrace();
+			}			
+		}
+
+		return bugs;
+	}
+
+
 	// Mention change in parameter
 	@Override
 	public void closeBug(int bugId, int managerId) throws SQLException {

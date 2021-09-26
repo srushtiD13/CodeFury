@@ -25,5 +25,6 @@ public interface ManagerDao {
 	public void addNewProject(Project project) throws SQLException;
 	
 	public User getUserById(int id)throws SQLException;
+	public List<Bug> findAllBugSorted(int projectId); 
 
 }
