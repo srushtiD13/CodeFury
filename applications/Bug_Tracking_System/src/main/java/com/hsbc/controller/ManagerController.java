@@ -14,10 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.hsbc.dao.ProjectDao;
-import com.hsbc.dao.UserDao;
-import com.hsbc.daoImpl.ProjectDaoImpl;
-import com.hsbc.daoImpl.UserDaoImpl;
+import com.hsbc.dao.ManagerDao;
+import com.hsbc.daoImpl.ManagerDaoImpl;
 import com.hsbc.entity.Project;
 import com.hsbc.entity.User;
 
@@ -27,18 +25,18 @@ public class ManagerController extends HttpServlet{
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String operation = req.getParameter("operation");
 		HttpSession session = req.getSession();
-
+		
+		int managerId = Integer.parseInt(req.getParameter("user_id"));
+		
+		
 		if(operation==null) {
-			ProjectDaoImpl p = new ProjectDaoImpl();
-			List <Project> projectList = p.findAllProjects(0);
+			ManagerDao p = new ManagerDaoImpl();
+			List <Project> projectList = p.findAllProject(managerId);
 			session.setAttribute("projectList", projectList);
-			User user = new User();
-			user.setEmailId("xyz@mail.com");
-		    Date date=Date.valueOf("1999-09-19");
-			user.setDoj(date);
-			user.setRole("Manager");
-			int userId = 101;
-			user.setUserId(userId );
+			User user=null;
+			user = p.getUserById(managerId);
+			
+			user.setUserId(managerId );
 			session.setAttribute("user", user);
 			RequestDispatcher dispatcher = req.getRequestDispatcher("managerMainPage.jsp");
 			dispatcher.forward(req, resp);

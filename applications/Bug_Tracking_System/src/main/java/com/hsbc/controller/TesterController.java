@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.hsbc.dao.ManagerDao;
+import com.hsbc.dao.TesterDao;
 import com.hsbc.daoImpl.ManagerDaoImpl;
 import com.hsbc.daoImpl.TesterDaoImpl;
 import com.hsbc.entity.Bug;
@@ -28,24 +29,19 @@ import com.hsbc.entity.User;
 public class TesterController extends HttpServlet{
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		ManagerDao dao = new ManagerDaoImpl();
 		Project project1 = new Project();
 		List<Bug> bugs;
 		String operation = request.getParameter("operation");
-		User loggedInUser =  new User();  //The object of the user logged in
-		loggedInUser.setName("Tester1");
-		loggedInUser.setEmailId("tester1@xyz.com");
+		int testerId = Integer.parseInt(request.getParameter("user_id"));
+		
+		TesterDao dao = new TesterDaoImpl();
 		
 		HttpSession session = request.getSession();
 		
 		if(operation==null) {
-			
-			session.setAttribute("user", loggedInUser);
 
-			project1 =  dao.findProjectById(1);
-			//		List<Project> projects= findProjectByTestor(loggedInUser); // function to interact with db 
-			List<Project> projects = new ArrayList<Project>();
-			projects.add(project1);
+			List<Project> projects =  dao.findProjectByTestor(testerId);
+			
 
 			if(projects.size()>0) {
 				request.setAttribute("projects", projects);
@@ -76,7 +72,6 @@ public class TesterController extends HttpServlet{
 			severity.add("trivial");
 	
 			session.setAttribute("severity", severity);
-			session.setAttribute("employee", loggedInUser);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("reportBug.jsp");
 			dispatcher.forward(request, response);
 		}
@@ -87,40 +82,27 @@ public class TesterController extends HttpServlet{
 
 		if(operation.equals("createbug")) {
 			TesterDaoImpl dao;
-			try {
-				dao = new TesterDaoImpl();
-				Bug bug = new Bug();
-				Project project = new Project();
-				int projectId = 1;										// this project id comes from main page of tester
+			dao = new TesterDaoImpl();
+			Bug bug = new Bug();
+			Project project = new Project();
+			int projectId = 1;										// this project id comes from main page of tester
 
-				String projectName = req.getParameter("projectname");	// this project name comes from main page of tester
-				String title = req.getParameter("title");
-				String description = req.getParameter("description");
-				String severity = req.getParameter("severity");
+			String projectName = req.getParameter("projectname");	// this project name comes from main page of tester
+			String title = req.getParameter("title");
+			String description = req.getParameter("description");
+			String severity = req.getParameter("severity");
 
-				bug.setBugName(title);
-				bug.setDescription(description);
-				bug.setCreatedBy(1);						//the id of current tester
-				bug.setOpenDate(new Date(System.currentTimeMillis()));
-				bug.setSeverityLevel(severity);
-				project.setProjectName(projectName);
-				project.setProjectId(projectId);
+			bug.setBugName(title);
+			bug.setDescription(description);
+			bug.setCreatedBy(1);						//the id of current tester
+			bug.setOpenDate(new Date(System.currentTimeMillis()));
+			bug.setSeverityLevel(severity);
+			project.setProjectName(projectName);
+			project.setProjectId(projectId);
 
-				try {
-					dao.reportNewBug(bug, project);
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+			dao.reportNewBug(bug, project);
 
-				resp.sendRedirect("testerMainPage.jsp");
-			} catch (ClassNotFoundException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			resp.sendRedirect("testerMainPage.jsp");
 			
 
 		}

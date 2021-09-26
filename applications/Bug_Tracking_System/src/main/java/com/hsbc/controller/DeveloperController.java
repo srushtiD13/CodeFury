@@ -1,5 +1,6 @@
 package com.hsbc.controller;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -10,10 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.hsbc.dao.BugDao;
-import com.hsbc.dao.ProjectDao;
-import com.hsbc.daoImpl.BugDaoImpl;
-import com.hsbc.daoImpl.ProjectDaoImpl;
+
+import com.hsbc.dao.DeveloperDao;
+import com.hsbc.daoImpl.DeveloperDaoImpl;
 import com.hsbc.entity.Bug;
 import com.hsbc.entity.Project;
 import com.hsbc.exceptions.NoBugFoundException;
@@ -28,27 +28,36 @@ public class DeveloperController extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		HttpSession session = req.getSession();
 		String operation = req.getParameter("operation");
+		int developerId = Integer.parseInt(req.getParameter("user_id"));
+		
+		DeveloperDao dao = null;													//Declaring Data access object of DAO class of Bug to fetch Bug details.
+		try {
+
+			dao = new DeveloperDaoImpl();		
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		if(operation==null) {
-			ProjectDao projectdao = new ProjectDaoImpl();	//Declaring Data access object of DAO class of Project to fetch Project details.
+		
 			List<Project> allproject;
-			allproject = projectdao.findAllProjects();					//Fetching the list of all Projects alloted to Developer by calling findAllProjects() method.
+			allproject = dao.findProjectByDeveloperId(developerId);					//Fetching the list of all Projects alloted to Developer by calling findAllProjects() method.
 			System.out.println(allproject);
 
-			BugDao bugdao = new BugDaoImpl();						//Declaring Data access object of DAO class of Bug to fetch Bug details.
-			List<Bug> allBug = bugdao.findAllBugs();						//Fetching the list of all Bugs alloted to Developer by calling findAllBugs() method.
+			List<Bug> allBug = dao.findBugByDeveloperId(developerId);						//Fetching the list of all Bugs alloted to Developer by calling findAllBugs() method.
 
 			req.setAttribute("bugs", allBug);								//Setting attribute as 'bug' to shift control to JSP file  and passing list of bugs. 
 			req.setAttribute("projects", allproject);					//Setting attribute as 'project' to shift control to JSP file  and passing list of projects.		
-			RequestDispatcher dispatcher = req.getRequestDispatcher("views/developerMainPage.jsp");		////This continues with existing reqeust. Dispatching request.
+			RequestDispatcher dispatcher = req.getRequestDispatcher("developerMainPage.jsp");		////This continues with existing reqeust. Dispatching request.
 			dispatcher.forward(req, resp);
 		}
 		else if(operation.equals("closebug")) {
 			int projectid = Integer.parseInt(req.getParameter("projectid"));
 			int bugid = Integer.parseInt(req.getParameter("bugid"));
-			BugDao bug = new BugDaoImpl();
 			
-			bug.closeBugById(bugid,projectid);
+			
+			dao.closeBug(bugid);
 			
 //			resp.sendRedirect("views/developerMainPage.jsp");
 			RequestDispatcher dispatcher = req.getRequestDispatcher("views/developerMainPage.jsp");		////This continues with existing reqeust. Dispatching request.

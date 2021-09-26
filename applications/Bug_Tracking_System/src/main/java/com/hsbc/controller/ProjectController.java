@@ -106,16 +106,8 @@ public class ProjectController extends HttpServlet{
 			// TO-DO call function to set developer as assigned for the bug by passing parameters: developer name and bugid to function
 			//if the bug is marked as not marked for closing then assign it to developer by checking the parameter asigned_to in database
 			ManagerDao dao;
-			try {
-				dao = new ManagerDaoImpl();
-				dao.assignBug(bugId ,developerId );
-			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			dao = new ManagerDaoImpl();
+			dao.assignBug(bugId ,developerId );
 			
 			//resp.sendRedirect("projectDetails.jsp");
 

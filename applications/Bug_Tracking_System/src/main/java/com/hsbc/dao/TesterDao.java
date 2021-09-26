@@ -8,10 +8,10 @@ import com.hsbc.entity.Project;
 
 public interface TesterDao {
 
-	public List<Project> findProjectByTestor(int tester_id) throws SQLException;
+	public List<Project> findProjectByTestor(int tester_id);
 
-	public List<Bug> findBugByProject(int project_id) throws SQLException;
+	public List<Bug> findBugByProject(int project_id);
 
-	public void reportNewBug(Bug bug, Project project) throws SQLException;
+	public void reportNewBug(Bug bug, Project project);
 
 }

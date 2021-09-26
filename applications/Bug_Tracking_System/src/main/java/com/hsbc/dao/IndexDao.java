@@ -15,8 +15,10 @@ public interface IndexDao {
 
 	public String getPassword(String emailId) throws UserNotRegisterd;
 
-	public String getRole(String username) throws SQLException;
+	public String getRole(String emailId) throws SQLException;
 
 	public boolean validate(String username, String Password) throws Exception;
+	
+	public int getIdByEmail(String emailId);
 
 }

@@ -11,10 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.hsbc.dao.ProjectDao;
-import com.hsbc.dao.UserDao;
-import com.hsbc.daoImpl.ProjectDaoImpl;
-import com.hsbc.daoImpl.UserDaoImpl;
+import com.hsbc.dao.ManagerDao;
+import com.hsbc.daoImpl.ManagerDaoImpl;
 import com.hsbc.entity.Project;
 import com.hsbc.entity.User;
 
@@ -22,9 +20,11 @@ import com.hsbc.entity.User;
 public class CreateProject extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		UserDao userDao= new UserDaoImpl();
-		List<User> allDevelopers = userDao.findAllDevelopers();
-		List<User> allTesters = userDao.findAllTesters();
+		
+		ManagerDao userDao= new ManagerDaoImpl();
+		int managerId = Integer.parseInt(req.getParameter("managerId")); //userId re check
+		List<User> allDevelopers = userDao.findAllDeveloper();
+		List<User> allTesters = userDao.findAllTestors(managerId);
 
 		req.setAttribute("developers", allDevelopers);
 		req.setAttribute("testers", allTesters);
@@ -59,9 +59,9 @@ public class CreateProject extends HttpServlet{
 		project.setManagerId(managerId);
 		System.out.println(project);
 
-		ProjectDao projectDao = new ProjectDaoImpl();
+		ManagerDao projectDao = new ManagerDaoImpl();
 		projectDao.addNewProject(project);
-		rd = request.getRequestDispatcher("views/managerMainPage.jsp");
+		rd = request.getRequestDispatcher("managerMainPage.jsp");
 		rd.forward(request, response);
 
 	}

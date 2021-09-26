@@ -9,21 +9,21 @@ import com.hsbc.entity.User;
 
 public interface ManagerDao {
 
-	public Project findProjectById(int projectId) throws SQLException;
+	public Project findProjectById(int projectId);
 
-	public List<Bug> findBugByProject(int project_id) throws SQLException;
+	public List<Bug> findBugByProject(int project_id);
 
-	public void closeBug(int bugId, int managerId) throws SQLException;
+	public void closeBug(int bugId, int managerId);
 
-	public void assignBug(int bugId, int developerId) throws SQLException;
+	public void assignBug(int bugId, int developerId);
 
-	public List<User> findAllDeveloper() throws SQLException;
+	public List<User> findAllDeveloper();
 
-	public List<User> findAllTestors(int managerId) throws SQLException;
+	public List<User> findAllTestors(int managerId);
 
-	public void addNewProject(Project project) throws SQLException;
+	public void addNewProject(Project project);
 	
-	public User getUserById(int id)throws SQLException;
+	public User getUserById(int id);
 	
 	public List<Bug> findAllBugSorted(int projectId); 
 

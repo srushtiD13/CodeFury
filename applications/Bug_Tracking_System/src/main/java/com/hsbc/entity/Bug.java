@@ -1,6 +1,7 @@
 package com.hsbc.entity;
 
-import java.sql.Date;
+import java.util.Date;
+import java.text.*;
 
 public class Bug {
 	private int uniqueId;
@@ -15,6 +16,35 @@ public class Bug {
 	private String status;
 	private String severityLevel;
 	private String markedForClosing;
+	
+	public Bug() {
+		
+	}
+	
+	public Bug(int uniqueId, String bugName, String description, int projectId, int createdBy, String openDate,
+			int assingedTo, String markedForClosing, int closedBy, String closeDate, String status,
+			String severityLevel) {
+		try {
+		this.uniqueId = uniqueId;
+		this.bugName = bugName;
+		this.description = description;
+		this.projectId = projectId;
+		this.createdBy = createdBy;
+		this.openDate = new SimpleDateFormat("yyyy-mm-dd").parse(openDate);
+		this.assingedTo = assingedTo;
+		this.markedForClosing = markedForClosing;
+		this.closedBy = closedBy;
+		this.closeDate = new SimpleDateFormat("yyyy-mm-dd").parse(closeDate);
+		this.status = status;
+		this.severityLevel = severityLevel;
+		}catch(Exception e) {
+			System.out.println("Error in converting date");
+		}
+	}
+
+
+
+
 	public int getUniqueId() {
 		return uniqueId;
 	}

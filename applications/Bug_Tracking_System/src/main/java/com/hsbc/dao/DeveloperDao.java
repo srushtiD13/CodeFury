@@ -12,6 +12,6 @@ public interface DeveloperDao {
 
 	public List<Bug> findBugByDeveloperId(int developerId);
 
-	public void closeBug(int bugId);
+	public void closeBug(int bugId); 
 
 }

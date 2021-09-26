@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.hsbc.dao.IndexDao;
 import com.hsbc.daoImpl.IndexDaoImpl;
 
 
@@ -22,13 +24,15 @@ import com.hsbc.daoImpl.IndexDaoImpl;
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private IndexDaoImpl login;
+	private IndexDao login ;
 
 	public void init() {
 		try {
+			System.out.println("init called");
 			login = new IndexDaoImpl();
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
+			System.out.println("login not init");
 			e.printStackTrace();
 		}
 	}
@@ -36,14 +40,16 @@ public class LoginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, NullPointerException {
 		
+		RequestDispatcher dispatcher = null;
 		
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		String role=null;
 		
-		
+		System.out.println(username );
 		 
 		try{
+				System.out.println(login.validate(username, password));
 				if (login.validate(username, password)) {
 			
 				//HttpSession session = request.getSession();
@@ -68,21 +74,32 @@ public class LoginServlet extends HttpServlet {
 		try {
 			
 			role = login.getRole(username);
-		} catch (SQLException e) {
+			System.out.println(role);
+			
+		} catch (SQLException e) { 
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		if(role=="Developer")
+		int id = login.getIdByEmail(username);
+		
+		if(role.equalsIgnoreCase("Developer"))
 		{
-			response.sendRedirect("developerMainPage.jsp");
+			request.setAttribute("user_id", id);
+			dispatcher = request.getRequestDispatcher("developerMainPage.jsp");
+			dispatcher.forward(request,response);
 		}
-		else if(role=="Tester")
+		else if(role.equalsIgnoreCase("Tester"))
 		{
-			response.sendRedirect("testerMainPage.jsp");
+			
+			request.setAttribute("user_id", id);
+			dispatcher = request.getRequestDispatcher("testerMainPage.jsp");
+			dispatcher.forward(request,response);
 		}
-		else if(role=="Manager")
+		else if(role.equalsIgnoreCase("ProjectManager"))
 		{
-			response.sendRedirect("managerMainPage.jsp");
+			request.setAttribute("user_id", id);
+			dispatcher = request.getRequestDispatcher("managerMainPage.jsp");
+			dispatcher.forward(request,response);
 		}
 		
 		

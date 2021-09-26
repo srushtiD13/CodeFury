@@ -74,10 +74,10 @@
         <input style="height:30px;width:200px" type="text" placeholder="Enter Email" name="email" id="email" required><br /><br />
 
         <label><b>Role</b></label><br />
-        <select style="height:40px;width:200px" name="Role" id="Role" required>
-            <option value="tester">Tester</option>
-            <option value="developer">Developer</option>
-            <option value="projectManager">Project Manager</option>
+        <select style="height:40px;width:200px" name="role" id="Role" required>
+            <option value="Tester">Tester</option>
+            <option value="Developer">Developer</option>
+            <option value="ProjectManager">Project Manager</option>
 
         </select><br /><br />
 

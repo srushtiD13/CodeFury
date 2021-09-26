@@ -1,4 +1,4 @@
-package com.hsbc.manager;
+package com.hsbc.daoImpl;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -285,7 +285,7 @@ public class ManagerDaoImpl implements ManagerDao {
 				while(resultSet.next()) {
 					Bug bug = new Bug();
 					bug.setUniqueId(resultSet.getInt(1));
-					bug.setTitle(resultSet.getString(2));
+					bug.setBugName(resultSet.getString(2));
 					bug.setMarkedForClosing(resultSet.getString(8));
 					bug.setStatus(resultSet.getString(11));
 					bugs.add(bug);

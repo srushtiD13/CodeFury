@@ -1,4 +1,4 @@
-package com.hsbc.developer;
+package com.hsbc.daoImpl;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -83,7 +83,7 @@ public class DeveloperDaoImpl implements DeveloperDao {
 				int bug_id= rs.getInt("unique_id");
 				String title = rs.getString("title");
 				String desc = rs.getString("description");
-				int procectId= rs.getInt("project_id");
+				int projectId= rs.getInt("project_id");
 				int createdBy= rs.getInt("created_by");
 				String openDate = rs.getString("open_date");
 				int assignedTo= rs.getInt("assigned_to");
@@ -93,7 +93,7 @@ public class DeveloperDaoImpl implements DeveloperDao {
 				String status = rs.getString("status");
 				String severity = rs.getString("severity");
 				
-				bugs.add(new Bug(bug_id, title, desc, procectId, createdBy, openDate, assignedTo, markForClosing, closedBy, closedOn, status, severity));
+				bugs.add(new Bug(bug_id, title, desc, projectId, createdBy, openDate, assignedTo, markForClosing, closedBy, closedOn, status, severity));
 				
 			}
 		} catch (SQLException e) {

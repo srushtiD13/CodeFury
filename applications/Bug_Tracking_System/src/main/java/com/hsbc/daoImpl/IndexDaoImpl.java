@@ -144,9 +144,8 @@ public class IndexDaoImpl implements IndexDao {
 	}
 	
 	@Override
-	public String getRole(String username) throws SQLException {
-		PreparedStatement preparedStatement = con.prepareStatement("select role from login where username = ?");
-		preparedStatement.setString(1, username);
+	public String getRole(String enailId) throws SQLException {
+		PreparedStatement preparedStatement = this.con.prepareStatement("select role from user where email = ?");
 		System.out.println(preparedStatement);
 		ResultSet rs = preparedStatement.executeQuery();
 		rs.next();
@@ -158,6 +157,22 @@ public class IndexDaoImpl implements IndexDao {
 		
 		return getPassword(username).equals(Password);
 		
+	}
+
+	@Override
+	public int getIdByEmail(String emailId) {
+		try {
+			PreparedStatement stmt = this.con.prepareStatement("SELECT user_id FROM user WHERE email = ?");
+			stmt.setString(1, emailId);
+			
+			ResultSet rs = stmt.executeQuery();
+			rs.next();
+			int id = rs.getInt("user_id");
+			return id;
+		} catch (SQLException e) {
+			// TODO: handle exception
+		}
+		return 0;
 	}
 
 }
