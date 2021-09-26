@@ -1,5 +1,5 @@
 CREATE DATABASE `bug_tracking_system` /*!40100 DEFAULT CHARACTER SET latin1 */;
-
+USE bug_tracking_system;
 CREATE TABLE `project` (
   `project_id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL,
@@ -62,3 +62,4 @@ CREATE TABLE `developer_project` (
   `project_id` int(11) DEFAULT '-1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+ SET GLOBAL FOREIGN_KEY_CHECKS=0;
