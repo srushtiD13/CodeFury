@@ -40,7 +40,7 @@ public class ManagerController extends HttpServlet{
 			int userId = 101;
 			user.setUserId(userId );
 			session.setAttribute("user", user);
-			RequestDispatcher dispatcher = req.getRequestDispatcher("views/managerMainPage.jsp");
+			RequestDispatcher dispatcher = req.getRequestDispatcher("managerMainPage.jsp");
 			dispatcher.forward(req, resp);
 		}
 		/*
@@ -52,7 +52,7 @@ public class ManagerController extends HttpServlet{
 		 * 
 		 * req.setAttribute("developers", allDevelopers); req.setAttribute("testers",
 		 * allTesters); RequestDispatcher dispatcher =
-		 * req.getRequestDispatcher("views/createNewProject.jsp");
+		 * req.getRequestDispatcher("createNewProject.jsp");
 		 * dispatcher.forward(req, resp); }
 		 */
 	}
