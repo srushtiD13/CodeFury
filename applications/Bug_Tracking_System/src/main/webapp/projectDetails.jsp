@@ -96,7 +96,9 @@
 								<label>Select developer to assign</label>
 								<select name="developer">
 									<c:forEach items="${ developers}" var="dev">
-										<option value="${ dev.getEmployeeId()}"> ${ dev.getEmployeeName()}</option>
+										<c:if test="${ dev.getRole().equals('developer')}">
+										  <option value="${ dev.getEmployeeId()}"> ${ dev.getEmployeeName()}</option>
+										</c:if>
 									</c:forEach>
 								</select>
 								<input type="submit" value="Assign"></input>
