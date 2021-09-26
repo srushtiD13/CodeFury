@@ -17,8 +17,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.hsbc.dao.ProjectDao;
-import com.hsbc.daoImpl.ProjectDaoImpl;
 import com.hsbc.entity.Bug;
 import com.hsbc.entity.Project;
 import com.hsbc.entity.User;
