@@ -17,7 +17,7 @@ public class ManagerDaoImpl implements ManagerDao {
 	private Connection con;
 
 	private final String FIND_PROJECT_BY_ID = "SELECT project_id, name, description, start_date, status FROM project WHERE project_id=?";
-	private final String FIND_BUG = "SELECT unique_id, title, description, project_id, created_by, open_date, assigned_to, mark_for_closing, closed_by, closed_on, status, severity WHERE project_id=?";
+	private final String FIND_BUG = "SELECT unique_id, title, description, project_id, created_by, open_date, assigned_to, mark_for_closing, closed_by, closed_on, status, severity FROM bug WHERE project_id=?";
 	private final String CLOSE_BUG = "UPDATE bug SET closed_by=? WHERE unique_id=?";
 	private final String ASSIGN_BUG = "UPDATE bug SET assigned_to=? WHERE unique_id=?";
 	private final String FIND_TESTER = "SELECT tester_id FROM tester_project WHERE project_id=?";
@@ -114,7 +114,7 @@ public class ManagerDaoImpl implements ManagerDao {
 		PreparedStatement stmt = null;
 
 		try {
-			stmt = con.prepareStatement(FIND_ALL_BUG);
+			stmt = con.prepareStatement(FIND_BUG);
 			stmt.setInt(1, projectId);
 			resultSet = stmt.executeQuery();
 
