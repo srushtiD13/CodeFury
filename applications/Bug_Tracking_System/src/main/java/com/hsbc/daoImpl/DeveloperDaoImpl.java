@@ -1,4 +1,4 @@
-package com.hsbc.daoImpl;
+package com.hsbc.developer;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -32,63 +32,71 @@ public class DeveloperDaoImpl implements DeveloperDao {
 	}
 
 	@Override
-	public List<Project> findProjectByDeveloperId(int tester_id) throws SQLException {
+	public List<Project> findProjectByDeveloperId(int tester_id){
 		System.out.println("finding projects of testor..");
 		List<Project> projects = new ArrayList<Project>();
 
-		PreparedStatement stmt = this.con.prepareStatement(FIND_PROJECT);
-		stmt.setInt(1, tester_id);
-		ResultSet rs = stmt.executeQuery();
+		try {
+			PreparedStatement stmt = this.con.prepareStatement(FIND_PROJECT);
+			stmt.setInt(1, tester_id);
+			ResultSet rs = stmt.executeQuery();
 
-		int id = -1;
-		while (rs.next()) {
-			id = rs.getInt("project_id");
-			if (id == -1) {
-				return projects;
+			int id = -1;
+			while (rs.next()) {
+				id = rs.getInt("project_id");
+				if (id == -1) {
+					return projects;
+				}
 			}
-		}
-		PreparedStatement stmt2 = this.con.prepareStatement(DISPLAY_PROJECT);
-		stmt2.setInt(1, id);
+			PreparedStatement stmt2 = this.con.prepareStatement(DISPLAY_PROJECT);
+			stmt2.setInt(1, id);
 
-		ResultSet rs2 = stmt2.executeQuery();
+			ResultSet rs2 = stmt2.executeQuery();
 
-		while (rs2.next()) {
-			int proId = rs2.getInt("project_id");
-			String name = rs2.getString("name");
-			String desc = rs2.getString("description");
-			String startDate = rs2.getString("start_date");
-			String status = rs2.getString("status");
+			while (rs2.next()) {
+				int proId = rs2.getInt("project_id");
+				String name = rs2.getString("name");
+				String desc = rs2.getString("description");
+				String startDate = rs2.getString("start_date");
+				String status = rs2.getString("status");
 
-			projects.add(new Project(proId, name, desc, startDate, status));
+				projects.add(new Project(proId, name, desc, startDate, status));
+			}
+		} catch (SQLException e) {
+			
 		}
 
 		return projects;
 	}
 	
 	@Override
-	public List<Bug> findBugByDeveloperId(int developerId) throws SQLException{
+	public List<Bug> findBugByDeveloperId(int developerId){
 		System.out.println("finding bugs for developer");
 		List<Bug> bugs = new ArrayList<Bug>();
 		
-		PreparedStatement stmt = this.con.prepareStatement(FIND_BUG);
-		stmt.setInt(1, developerId);
-		ResultSet rs = stmt.executeQuery();
-		
-		while(rs.next()) {
-			int bug_id= rs.getInt("unique_id");
-			String title = rs.getString("title");
-			String desc = rs.getString("description");
-			int procectId= rs.getInt("project_id");
-			int createdBy= rs.getInt("created_by");
-			String openDate = rs.getString("open_date");
-			int assignedTo= rs.getInt("assigned_to");
-			String markForClosing = rs.getString("mark_for_closing");
-			int closedBy= rs.getInt("closed_by");
-			String closedOn = rs.getString("closed_on");
-			String status = rs.getString("status");
-			String severity = rs.getString("severity");
+		try {
+			PreparedStatement stmt = this.con.prepareStatement(FIND_BUG);
+			stmt.setInt(1, developerId);
+			ResultSet rs = stmt.executeQuery();
 			
-			bugs.add(new Bug(bug_id, title, desc, procectId, createdBy, openDate, assignedTo, markForClosing, closedBy, closedOn, status, severity));
+			while(rs.next()) {
+				int bug_id= rs.getInt("unique_id");
+				String title = rs.getString("title");
+				String desc = rs.getString("description");
+				int procectId= rs.getInt("project_id");
+				int createdBy= rs.getInt("created_by");
+				String openDate = rs.getString("open_date");
+				int assignedTo= rs.getInt("assigned_to");
+				String markForClosing = rs.getString("mark_for_closing");
+				int closedBy= rs.getInt("closed_by");
+				String closedOn = rs.getString("closed_on");
+				String status = rs.getString("status");
+				String severity = rs.getString("severity");
+				
+				bugs.add(new Bug(bug_id, title, desc, procectId, createdBy, openDate, assignedTo, markForClosing, closedBy, closedOn, status, severity));
+				
+			}
+		} catch (SQLException e) {
 			
 		}
 		
@@ -96,11 +104,16 @@ public class DeveloperDaoImpl implements DeveloperDao {
 	}
 	
 	@Override
-	public void closeBug(int bugId) throws SQLException {
-		PreparedStatement stmt = this.con.prepareStatement(CLOSE_BUG);
-		stmt.setString(1, "yes");
-		stmt.setInt(2, bugId);
-		stmt.executeUpdate();
+	public void closeBug(int bugId) {
+		try {
+			PreparedStatement stmt = this.con.prepareStatement(CLOSE_BUG);
+			stmt.setString(1, "yes");
+			stmt.setInt(2, bugId);
+			stmt.executeUpdate();
+		} catch (SQLException e) {
+			
+			
+		}
 	}
 
 }

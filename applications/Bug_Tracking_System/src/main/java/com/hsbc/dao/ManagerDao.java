@@ -13,7 +13,6 @@ public interface ManagerDao {
 
 	public List<Bug> findBugByProject(int project_id) throws SQLException;
 
-	// Mention change in parameter
 	public void closeBug(int bugId, int managerId) throws SQLException;
 
 	public void assignBug(int bugId, int developerId) throws SQLException;
@@ -25,6 +24,9 @@ public interface ManagerDao {
 	public void addNewProject(Project project) throws SQLException;
 	
 	public User getUserById(int id)throws SQLException;
+	
 	public List<Bug> findAllBugSorted(int projectId); 
+
+	public List<Project> findAllProject(int managerId);
 
 }
