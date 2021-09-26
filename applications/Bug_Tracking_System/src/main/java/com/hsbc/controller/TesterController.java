@@ -53,7 +53,7 @@ public class TesterController extends HttpServlet{
 				for(Project project :projects)
 				{
 					//				bugs = findBugByProject(project); // Function that interact with db and give project list
-					bugs = dao.findAllBug(project.getProjectId());
+					bugs = dao.findBugByProject(project.getProjectId());
 					dict.put(project, bugs);
 
 				}
@@ -62,7 +62,7 @@ public class TesterController extends HttpServlet{
 			else {
 				request.setAttribute("message","No projects assigned");			
 			}
-			String target="views/testerMainPage.jsp";      // url for next page
+			String target="testerMainPage.jsp";      // url for next page
 			RequestDispatcher rd = null;
 			rd = request.getRequestDispatcher(target); 
 
@@ -77,7 +77,7 @@ public class TesterController extends HttpServlet{
 	
 			session.setAttribute("severity", severity);
 			session.setAttribute("employee", loggedInUser);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("views/reportBug.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("reportBug.jsp");
 			dispatcher.forward(request, response);
 		}
 	}
@@ -113,7 +113,7 @@ public class TesterController extends HttpServlet{
 					e.printStackTrace();
 				}
 
-				resp.sendRedirect("view/testerMainPage.jsp");
+				resp.sendRedirect("testerMainPage.jsp");
 			} catch (ClassNotFoundException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
