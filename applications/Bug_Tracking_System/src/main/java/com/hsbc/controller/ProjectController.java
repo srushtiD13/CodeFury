@@ -29,23 +29,28 @@ public class ProjectController extends HttpServlet{
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		ManagerDao dao = new ManagerDaoImpl();
 		Project project = new Project();
-		User employee = new User();
+		//User employee = new User();
 		List<Bug> bugs = new ArrayList<Bug>();
 
 		String operation = req.getParameter("operation");
 		
 		// this projectId will come from main page of manager
 		int projectId = Integer.parseInt(req.getParameter("projectId"));
-
+		System.out.println("Project controller projectId :  "+projectId);
 		HttpSession session = req.getSession();
 
 		if(operation==null||operation.trim().length()==0) {
 			project = dao.findProjectById(projectId);
+			System.out.println("Project controller project name :  "+project.getProjectName());
 			bugs = dao.findBugByProject(projectId);
+			System.out.println("bugs : "+bugs);
 			List<User> developer = new ArrayList<User>();
-			for(int i:project.getDeveloperId()) {
+			List<Integer> list = project.getDeveloperId();
+			
+			for(int i:list) {
 				developer.add(dao.getUserById(i));
 			}
+			System.out.println("Project controller developer :  "+developer);
 			developer.add(dao.getUserById(project.getTesterId()));
 
 			session.setAttribute("developers", developer);

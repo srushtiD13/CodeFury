@@ -45,19 +45,17 @@
 		<th colspan="2">Project ID</th>
 		<th colspan="2">Project Name</th>
 		<th colspan="2">Project Descp</th>
-<!-- 		<th colspan="2">Team members</th> -->
 		<th colspan="2">Status</th>
 		<th colspan="2">Start Date</th>
 	</tr>
-	<c:forEach items="${project}" var= "details">
+	<c:forEach items="${projects}" var= "details">
 	
 		<tr>
-		<td>${ details.projectId} </td>
-		<td>${ details.name}</td>
-		<td>${ details.description}</td>
-<%-- 		<td>${ details.teamMembers}</td> --%>
-		<td>${ details.status}</td>
-		<td>${ details.startDate}</td>
+		<td>${ details.getProjectId()} </td>
+		<td>${ details.getProjectName()}</td>
+		<td>${ details.getDescription()}</td>
+		<td>${ details.getStatus()}</td>
+		<td>${ details.getStartDate()}</td>
 		</tr>
  		
 	</c:forEach>
@@ -78,12 +76,12 @@
 		
 		<tr>
 		
-		<td>${ detl.bugid} </td>
-		<td>${ detl.bugName}</td>
+		<td>${ detl.getUniqueId()} </td>
+		<td>${ detl.getBugName()}</td>
 		
 <%-- 		<td><input type="submit" value="Close Bug" id="${ detl.bugid}"></td> --%>
 <%-- 			<td><input type ="submit" name="${detl.bugid}" value="Close Bug"> </td> --%>
-			<td><a href= "closebug?"id="${detl.bugid}">Close Bug</a>
+			<td><a href= "closebug?bugid=${detl.getUniqueId()}&user_id=${user_id}">Close Bug</a>
 		</tr>
 		
  		

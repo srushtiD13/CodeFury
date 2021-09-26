@@ -32,17 +32,23 @@ public class TesterController extends HttpServlet{
 		Project project1 = new Project();
 		List<Bug> bugs;
 		String operation = request.getParameter("operation");
+		System.out.println("Tester Controller : "+request.getParameter("user_id"));
 		int testerId = Integer.parseInt(request.getParameter("user_id"));
-		
-		TesterDao dao = new TesterDaoImpl();
-		
+		System.out.println("in tester controller"+testerId);
 		HttpSession session = request.getSession();
+		TesterDao dao = new TesterDaoImpl();
+		ManagerDao p = new ManagerDaoImpl();
+		User user = p.getUserById(testerId);
+		System.out.println(user.toString());
+		System.out.println("Manager role : "+user.getRole());
+		System.out.println("Manager LastLogin : "+user.getLastLogin());
+		user.setUserId(testerId );
+		session.setAttribute("user", user);
 		
 		if(operation==null) {
 
 			List<Project> projects =  dao.findProjectByTestor(testerId);
-			
-
+			System.out.println("project conrtroller"+projects);
 			if(projects.size()>0) {
 				request.setAttribute("projects", projects);
 				Map<Project, List<Bug>> dict= new HashMap<Project, List<Bug>>();
@@ -70,9 +76,11 @@ public class TesterController extends HttpServlet{
 			severity.add("major");
 			severity.add("minor");
 			severity.add("trivial");
-	
+			
 			session.setAttribute("severity", severity);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("reportBug.jsp");
+			List<Project> projects =  dao.findProjectByTestor(testerId);
+			session.setAttribute("projects", projects);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("testerReportBug.jsp");
 			dispatcher.forward(request, response);
 		}
 	}

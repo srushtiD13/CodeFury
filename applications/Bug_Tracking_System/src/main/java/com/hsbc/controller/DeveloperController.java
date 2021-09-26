@@ -60,7 +60,7 @@ public class DeveloperController extends HttpServlet {
 			dao.closeBug(bugid);
 			
 //			resp.sendRedirect("views/developerMainPage.jsp");
-			RequestDispatcher dispatcher = req.getRequestDispatcher("views/developerMainPage.jsp");		////This continues with existing reqeust. Dispatching request.
+			RequestDispatcher dispatcher = req.getRequestDispatcher("developerMainPage.jsp");		////This continues with existing reqeust. Dispatching request.
 			dispatcher.forward(req, resp);
 		}
 	}

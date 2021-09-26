@@ -15,7 +15,7 @@
 		<tr>
 			<td>Role : ${user.getRole()}</td>
 		</tr>
-			<td>Last login date & Time : ${user.getDoj()}</td>
+			<td>Last login date & Time : ${user.getLastLogin()}</td>
 		<tr>
 		</tr>
 	</table>

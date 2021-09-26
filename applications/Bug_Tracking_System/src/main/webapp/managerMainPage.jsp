@@ -12,7 +12,7 @@
 	<%@ include file="header.jsp"%>
 	<%@ include file="userDetails.jsp"%> <!-- Pass user object through controller -->
 	<hr>
-	<a href="addproject">Create New Project</a>
+	<a href="addproject?user_id=${user.getEmployeeId()}">Create New Project</a>
 	<hr>
 	<table align="center">
 			<!-- all projects under manager -->

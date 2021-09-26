@@ -13,16 +13,16 @@
 <body>
 	<jsp:include page="header.jsp" />
 
-	<a href="manager">Manager Main</a>
+	<a href="managerMainpage.jsp">Manager Main</a>
 	<div align="center">
 	<h2>Add new Project</h2>
 	<form action="addproject" method="POST">
 	<div align ="center">Manager Id : 
-		<input id='managerId' type="text" name="name" value="${ user.getUserId() }" placeholder="${ user.getUserId() }" disabled ><br><br />
+		<input id='managerId' type="text" name="user_id" value="${ user.getEmployeeId()}" placeholder="${ user.getEmployeeId()}" ><br><br />
 		</div>
-		<input id='projectName' type="text" name="name" value="${ project.name }" placeholder="Enter Name"><br/><br>
+		<input id='projectName' type="text" name="name" value="${project.getProjectName()}" placeholder="Enter Name"><br/><br>
 		
-		<textarea id='projectDesc' type="text" name="description"	value="${ project.description }" placeholder="Enter description"></textarea>
+		<textarea id='projectDesc' type="text" name="description"	value="${project.getDescription()}" placeholder="Enter description"></textarea>
 		<br /> <br>
 		<input type="date" onblur="validateDate()" name="startDate"
 			id='startDate' placeholder="dd-mm-yyyy" value="${project.startDate }"
@@ -31,7 +31,7 @@
 		<select	name="developers" id='developers' multiple="multiple">
 			<option value="" disabled>Select Developers</option>
 			<c:forEach items="${developers}" var="developer">
-				<option value="${developer.getUserId()}" name="${developer.getName()}">
+				<option value="${developer.getEmployeeId()}" name="${developer.getName()}">
 					${developer.getName()}</option>
 			</c:forEach>
 		</select> 
@@ -39,7 +39,7 @@
 	    <select name="testers">
 			<option value="">Select Tester</option>
 			<c:forEach items="${testers}" var="tester">
-				<option value="${tester.getUserId()}" name="${tester.getName()}">
+				<option value="${tester.getEmployeeId()}" name="${tester.getName()}">
 					${tester.getName()}</option>
 			</c:forEach>
 		</select><br><br>

@@ -17,7 +17,7 @@ public class TesterDaoImpl implements TesterDao {
 
 	private final String DISPLAY_PROJECT = "SELECT project_id, name, description, start_date, status FROM project WHERE project_id=?";
 	private final String FIND_PROJECT = "SELECT project_id FROM tester_project WHERE tester_id =?";
-	private final String FIND_BUG = "SELECT unique_id, title, description, project_id, created_by, open_date, assigned_to, mark_for_closing, closed_by, closed_on, status, severity WHERE project_id=?";
+	private final String FIND_BUG = "SELECT * from bug WHERE project_id=?";
 	private final String INSERT_BUG = "INSERT INTO bug(title,description,project_id,created_by,open_date,severity) VALUES(?,?,?,?,?,?)";
 	
 	private final String USER_NAME = "root";
@@ -44,7 +44,6 @@ public class TesterDaoImpl implements TesterDao {
 		System.out.println("finding projects of testor..");
 		List<Project> projects = new ArrayList<Project>();
 		List<Integer> projectId = new ArrayList<Integer>();
-
 		try {
 			PreparedStatement stmt = this.con.prepareStatement(FIND_PROJECT);
 			stmt.setInt(1, tester_id);
@@ -116,6 +115,14 @@ public class TesterDaoImpl implements TesterDao {
 	
 	@Override
 	public void reportNewBug(Bug bug, Project project){
+		
+		try {
+			PreparedStatement stmt1 = this.con.prepareStatement("SET GLOBAL FOREIGN_KEY_CHECKS=0");
+			stmt1.executeQuery();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 		try {
 			PreparedStatement stmt = this.con.prepareStatement(INSERT_BUG);

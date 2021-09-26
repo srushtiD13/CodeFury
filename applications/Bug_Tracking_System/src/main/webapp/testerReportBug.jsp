@@ -20,9 +20,14 @@
 	</div>
 	<div class="form-group" style="flex-grow: 1">
 		<!-- projectdetails is the url pattern of controller -->
-		<form action="projectdetails" method="POST">							
+		<form action="testermain" method="POST">							
 			<!-- this project name will come from previous page(main page of tester) -->
-			<input type="text" name="projectname"  value="${ project.getProjectName()}" readonly="readonly"></input><br/><br>	
+			<select name="projectname">
+				<c:forEach items="${ projects}" var="project">
+					<option value="${ project.getProjectName()}"> ${ project.getProjectName()}</option>
+				</c:forEach>
+			</select><br><br>
+			<!--  <input type="text" name="projectname"  value="${ project.getProjectName()}" readonly="readonly"></input><br/><br>	-->
 			<input type="text" name="title" placeholder="Title for bug"></input><br><br>
 			<textarea type="text" name="description" placeholder="Description for bug" rows="2" cols="20"></textarea><br><br>
 			<!-- <input type="text" name="severity" placeholder="severity of bug"></input> -->

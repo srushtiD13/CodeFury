@@ -28,11 +28,9 @@ public class LoginServlet extends HttpServlet {
 
 	public void init() {
 		try {
-			System.out.println("init called");
 			login = new IndexDaoImpl();
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
-			System.out.println("login not init");
 			e.printStackTrace();
 		}
 	}
@@ -49,7 +47,6 @@ public class LoginServlet extends HttpServlet {
 		System.out.println(username );
 		 
 		try{
-				System.out.println(login.validate(username, password));
 				if (login.validate(username, password)) {
 			
 				//HttpSession session = request.getSession();
@@ -81,25 +78,29 @@ public class LoginServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		int id = login.getIdByEmail(username);
-		
 		if(role.equalsIgnoreCase("Developer"))
 		{
-			request.setAttribute("user_id", id);
+			/*request.setAttribute("user_id", id);
 			dispatcher = request.getRequestDispatcher("developerMainPage.jsp");
-			dispatcher.forward(request,response);
+			dispatcher.forward(request,response);*/
+			response.sendRedirect("developer?user_id="+id);
 		}
 		else if(role.equalsIgnoreCase("Tester"))
 		{
 			
-			request.setAttribute("user_id", id);
+			/*request.setAttribute("user_id", id);
 			dispatcher = request.getRequestDispatcher("testerMainPage.jsp");
-			dispatcher.forward(request,response);
+			dispatcher.forward(request,response);*/
+			response.sendRedirect("testermain?user_id="+id);
 		}
 		else if(role.equalsIgnoreCase("ProjectManager"))
 		{
-			request.setAttribute("user_id", id);
-			dispatcher = request.getRequestDispatcher("managerMainPage.jsp");
-			dispatcher.forward(request,response);
+			/*
+			 * System.out.println("in else if  id : "+id); request.setAttribute("user_id",
+			 * id); dispatcher = request.getRequestDispatcher("manager?user_id="+id);
+			 * dispatcher.forward(request,response);
+			 */
+			response.sendRedirect("manager?user_id="+id);
 		}
 		
 		

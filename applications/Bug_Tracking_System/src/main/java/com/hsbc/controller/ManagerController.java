@@ -25,22 +25,20 @@ public class ManagerController extends HttpServlet{
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String operation = req.getParameter("operation");
 		HttpSession session = req.getSession();
-		
 		int managerId = Integer.parseInt(req.getParameter("user_id"));
-		
-		
-		if(operation==null) {
+			System.out.println("Manager id :"+managerId);
+			//Problem
 			ManagerDao p = new ManagerDaoImpl();
 			List <Project> projectList = p.findAllProject(managerId);
 			session.setAttribute("projectList", projectList);
-			User user=null;
-			user = p.getUserById(managerId);
-			
+			User user = p.getUserById(managerId);
+			System.out.println(user.toString());
+			System.out.println("Manager role : "+user.getRole());
+			System.out.println("Manager LastLogin : "+user.getLastLogin());
 			user.setUserId(managerId );
 			session.setAttribute("user", user);
 			RequestDispatcher dispatcher = req.getRequestDispatcher("managerMainPage.jsp");
 			dispatcher.forward(req, resp);
-		}
 		/*
 		 * else if(operation.equals("create")) {
 		 * 

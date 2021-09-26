@@ -32,7 +32,7 @@
 				</tr>
 				<tr>
 					<th>Id of Project Manager : </th>
-					<td>${ project.getProjectManagerId()}</td>
+					<td>${ project.getManagerId()}</td>
 				</tr>
 				<tr>
 					<th rowspan='10'>Team members : </th>
@@ -96,7 +96,7 @@
 								<label>Select developer to assign</label>
 								<select name="developer">
 									<c:forEach items="${ developers}" var="dev">
-										<c:if test="${ dev.getRole().equals('developer')}">
+										<c:if test="${ dev.getRole().equalsIgnoreCase('Developer')}">
 										  <option value="${ dev.getEmployeeId()}"> ${ dev.getEmployeeName()}</option>
 										</c:if>
 									</c:forEach>

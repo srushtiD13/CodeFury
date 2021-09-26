@@ -9,8 +9,8 @@
 </head>
 <body>
 	<jsp:include page="header.jsp"/>
-	<label>Username : "${user.getName()}"</label><br>
-	<label>Email : "${user.getEmailId()}"</label><br><hr>
+	<label>Username : ${user.getEmployeeName()}</label><br>
+	<label>Email : ${user.getEmailId()}</label><br><hr>
 	<c:choose>
 		<c:when test="${ projects.size()>0}">
 			<c:forEach items="${projects}" var="project"> 
@@ -55,7 +55,7 @@
 		<h3>${message}</h3>	
 	</c:otherwise>	
 	</c:choose>
-	<a href='testermain?operation=reportbug'><button>Create new bug</button></a><br>
+	<a href='testermain?operation=reportbug&user_id=${user.getEmployeeId()}'><button>Create new bug</button></a><br>
 	
 </body>
 </html>

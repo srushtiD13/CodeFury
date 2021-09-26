@@ -22,30 +22,31 @@ public class CreateProject extends HttpServlet{
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		ManagerDao userDao= new ManagerDaoImpl();
-		int managerId = Integer.parseInt(req.getParameter("managerId")); //userId re check
+		int managerId = Integer.parseInt(req.getParameter("user_id")); //userId re check
+		System.out.println("Create Project  : "+managerId);
 		List<User> allDevelopers = userDao.findAllDeveloper();
 		List<User> allTesters = userDao.findAllTestors(managerId);
-
 		req.setAttribute("developers", allDevelopers);
 		req.setAttribute("testers", allTesters);
-		RequestDispatcher dispatcher = req.getRequestDispatcher("views/createNewProject.jsp");
+		RequestDispatcher dispatcher = req.getRequestDispatcher("createNewProject.jsp");
 		dispatcher.forward(req, resp);
 	}
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		List<Integer>  teamMembers = new ArrayList<Integer>(); 
+		//List<Integer>  teamMembers = new ArrayList<Integer>(); 
 		String name = request.getParameter("name");
 		String description = request.getParameter("description");
-		String status= request.getParameter("status");
-		Integer tester = Integer.parseInt(request.getParameter("testers"));
+		//String status= request.getParameter("status");
+		int tester = Integer.parseInt(request.getParameter("testers"));
 		List<Integer> developers = new ArrayList<Integer>();
 		String startDate = request.getParameter("startDate");
 		for (String userid :  (request.getParameterValues("developers")))
 		{
 			developers.add( Integer.parseInt(userid));
 		}
-		int managerId = Integer.parseInt(request.getParameter("managerId"));
+		System.out.println(request.getParameter("user_id"));
+		int managerId = Integer.parseInt(request.getParameter("user_id"));
 		
 
 		RequestDispatcher rd = null;
@@ -61,9 +62,11 @@ public class CreateProject extends HttpServlet{
 
 		ManagerDao projectDao = new ManagerDaoImpl();
 		projectDao.addNewProject(project);
-		rd = request.getRequestDispatcher("managerMainPage.jsp");
-		rd.forward(request, response);
-
+		/*
+		 * rd = request.getRequestDispatcher("managerMainPage.jsp"); rd.forward(request,
+		 * response);
+		 */
+		response.sendRedirect("manager?user_id="+managerId);
 	}
 
 }
