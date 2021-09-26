@@ -60,6 +60,6 @@ public class RegisterServlet extends HttpServlet {
             System.out.println(e.getMessage());
         }
 
-        response.sendRedirect("userdetails.jsp");
+        response.sendRedirect("homePage.jsp");
     }
 }
