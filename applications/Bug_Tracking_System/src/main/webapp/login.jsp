@@ -62,7 +62,7 @@ function checkValidEmail ()
   <div class="center">
 <h2>Login Page</h2>
 
-<form name="myForm" onsubmit="return checkValidEmail()" action="Login"  method="post">
+<form name="myForm" onsubmit="return checkValidEmail()" action="login"  method="post">
     <label><b>Email</b></label><br />
     <input style="height:40px;width:200px" type="text" placeholder="Enter Email" name="email" id="email" required><br /><br />
     <div id ="emailerr"></div>

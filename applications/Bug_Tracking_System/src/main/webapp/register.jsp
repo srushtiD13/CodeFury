@@ -65,7 +65,7 @@
 
      <div class="container">
   <div class="center">
-<form name="myForm" onsubmit="return checkValidEmail()" action="Register" method="post" onsubmit="return validatePassword()">
+<form name="myForm" onsubmit="return checkValidEmail()" action="register" method="post" onsubmit="return validatePassword()">
 
 
 
