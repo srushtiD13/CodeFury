@@ -51,7 +51,7 @@ public class ProjectController extends HttpServlet{
 			session.setAttribute("developers", developer);
 			session.setAttribute("project", project);
 			session.setAttribute("bug", bugs);
-			RequestDispatcher dispatcher = req.getRequestDispatcher("views/projectDetails.jsp");
+			RequestDispatcher dispatcher = req.getRequestDispatcher("projectDetails.jsp");
 			dispatcher.forward(req, resp);
 		}
 		else if(operation.equals("assign")) {
@@ -66,7 +66,7 @@ public class ProjectController extends HttpServlet{
 			session.setAttribute("bugid", bugId);
 			session.setAttribute("projectId", projectId);
 			//resp.sendRedirect("projectDetails.jsp");
-			RequestDispatcher dispatcher = req.getRequestDispatcher("views/assignto.jsp");
+			RequestDispatcher dispatcher = req.getRequestDispatcher("assignto.jsp");
 			dispatcher.forward(req, resp);
 		}
 		else if(operation.equals("filter")) {
@@ -117,7 +117,7 @@ public class ProjectController extends HttpServlet{
 				e.printStackTrace();
 			}
 			
-			resp.sendRedirect("views/projectDetails.jsp");
+			//resp.sendRedirect("projectDetails.jsp");
 
 			System.out.println(developerId);
 			System.out.println(bugId);
