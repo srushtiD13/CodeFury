@@ -74,7 +74,7 @@
         <input style="height:30px;width:200px" type="text" placeholder="Enter Email" name="email" id="email" required><br /><br />
 
         <label><b>Role</b></label><br />
-        <select style="height:40px;width:200px" name="role" id="role" required>
+        <select style="height:40px;width:200px" name="Role" id="Role" required>
             <option value="tester">Tester</option>
             <option value="developer">Developer</option>
             <option value="projectManager">Project Manager</option>
@@ -82,7 +82,7 @@
         </select><br /><br />
 
         <label><b>Password</b></label><br />
-        <input style="height:30px;width:200px" type="password" placeholder="Enter Password" name="pwd" id="pwd" required><br /><br />
+        <input style="height:30px;width:200px" type="password" placeholder="Enter Password" name="password" id="password" required><br /><br />
 
 
         <input  style="height:40px;width:200px" type="submit" Value="Register"><br /><br />

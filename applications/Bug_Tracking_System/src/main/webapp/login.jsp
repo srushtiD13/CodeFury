@@ -64,11 +64,11 @@ function checkValidEmail ()
 
 <form name="myForm" onsubmit="return checkValidEmail()" action="login"  method="post">
     <label><b>Email</b></label><br />
-    <input style="height:40px;width:200px" type="text" placeholder="Enter Email" name="email" id="email" required><br /><br />
+    <input style="height:40px;width:200px" type="text" placeholder="Enter Email" name="username" id="username" required><br /><br />
     <div id ="emailerr"></div>
 
     <label><b>Password</b></label><br />
-    <input style="height:40px;width:200px" type="password" placeholder="Enter Password" name="pwd" required><br /><br />
+    <input style="height:40px;width:200px" type="password" placeholder="Enter Password" name="password" required><br /><br />
 
     <input style="height:40px;width:200px" type="submit" Value="Login"><br><br>
     <div id ="err"></div>
